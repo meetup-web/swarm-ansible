@@ -1,0 +1,13 @@
+---
+- name: Configure Docker hosts
+  hosts: all
+  become: yes
+  gather_facts: yes
+
+  roles:
+    - role: common
+      tags: common
+    - role: docker
+      tags: docker
+    - role: swarm
+      tags: swarm

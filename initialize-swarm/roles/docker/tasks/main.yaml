@@ -1,0 +1,34 @@
+---
+- name: Add Docker GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable"
+    state: present
+    filename: docker-ce
+
+- name: Install Docker packages
+  apt:
+    name: "{{ docker_packages }}"
+    state: present
+    force_apt_get: yes
+  notify: restart docker
+
+- name: Ensure Docker is running
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  register: docker_status
+
+- name: Configure Docker daemon
+  template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart docker

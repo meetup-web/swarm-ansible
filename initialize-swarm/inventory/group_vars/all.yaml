@@ -1,0 +1,22 @@
+---
+system_packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - software-properties-common
+  - gnupg-agent
+  - python3-pip
+  - git
+  - net-tools
+  - ufw
+
+docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+
+docker_version: "5:24.0.7-1~ubuntu.22.04~jammy"
+python_packages:
+  - docker
+  - ansible
+  - requests
